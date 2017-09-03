@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
+     >
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="csrf-token" th:content="${_csrf.token}"/>
+	
+    <title>Project 40 | Personiv</title>
+	<base href="/Project40/"></base>
+	
+	<!-- Bootstrap CSS -->
+	<link href="/Project40/bower_components/bootstrap-3.3.7-dist/css/bootstrap.min.css" rel="stylesheet" />
+    
+	<!-- Custom Fonts -->
+    <link href="/Project40/bower_components/font-awesome/css/font-awesome.css" rel="stylesheet" type="text/css"/>
+	
+	<!-- Custom CSS -->
+ 	<link href="/Project40/assets/css/sb-admin-2.css" rel="stylesheet"/>
+   	<link href="/Project40/assets/css/main.css" rel="stylesheet"/>
+</head>
+<body ng-app ="project40">
+	<ui-view></ui-view>
+	<!-- <input type="hidden" th:name="${_csrf.parameterName}"  /> -->
+								
+<!-- jQuery -->
+<script type="text/javascript" src="/Project40/bower_components/jquery.js"></script>
+<!-- Bootstrap Core JavaScript -->
+<script type="text/javascript" src="/Project40/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>	
+<script type="text/javascript" src="/Project40/bower_components/angular.min.js"></script>
+<script type="text/javascript" src="/Project40/bower_components/angular-ui-router.min.js"></script>		
+
+<script type="text/javascript" src="/Project40/ng/project40.js"></script>
+<script type="text/javascript" src="/Project40/ng/controller/landing.controller.js"></script>
+<script type="text/javascript" src="/Project40/ng/controller/login.controller.js"></script>
+
+<script type="text/javascript" src="/Project40/ng/service/login.service.js"></script>
+
+</body>
+</html>

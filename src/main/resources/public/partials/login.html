@@ -1,0 +1,84 @@
+<div class="container login-container">
+    <div class="row">
+        <div class="col-xs-4 col-xs-offset-4">
+            <div class="login-panel panel panel-default">
+                <div class="panel-heading">
+                    <div class="row">
+	                <div class="col-sm-12 text-center">
+	                	<i class="lnr lnr-cloud-sync"></i>
+	                    <span><h1><strong>Project 40</strong></h1></span>
+	                    <div class="divider-1 wow fadeInUp"><span></span></div>
+	                </div>
+	            </div>
+                </div>
+                <div class="panel-body">
+                    <form id="login_form"
+                          name="vmLogin.login_form"
+                          focus-first
+                          role="form"
+                          ng-submit="vmLogin.logUser()"
+                          novalidate>
+                        <fieldset>
+                            <div class="form-group text-left">
+                                <!-- <span for="login_employee_id">Employee ID</span> -->
+                                
+								  <i class="lnr lnr-user"></i> Username
+								  <input type="text"
+	                                       id="login_employee_id"
+	                                       autocomplete="off"
+	                                       class="form-control"
+	                                       ng-model="vmLogin.user.user_name"
+	                                       placeholder="Username"
+	                                       ng-change="vmLogin.status=''"
+	                                       autofocus
+	                                       required>
+                                <div class="col-xs-12">
+                                    <div ng-messages="vmLogin.login_form.employeeId.$error"
+                                         ng-show="vmLogin.status && vmLogin.user.employeeId.length != 0">
+                                        <!--<div ng-message="required">Employee ID is required</div>-->
+                                        <!--{{vmLogin.status}}-->
+                                    </div>
+                                </div>
+                                
+                             </div>
+                                <div class="form-group text-left"
+                                     ng-class="{'has-error': vmLogin.status || (vmLogin.login_form.password.$invalid && !vmLogin.login_form.$pristine
+                                                 && (vmLogin.login_form.password.$dirty || vmLogin.login_form.$submitted))}">
+                                    <i class="lnr lnr-lock"></i> Password
+                                    <input class="form-control"
+                                           id="login_password"
+                                           autocomplete="off"
+                                           ng-model="vmLogin.user.user_pass"
+                                           placeholder="Password"
+                                           type="password"
+                                           ng-change="vmLogin.status=''"
+                                           required>
+                                    <div class="">
+                                        <div ng-messages="vmLogin.login_form.password.$error"
+                                             ng-show="vmLogin.status || (vmLogin.login_form.password.$invalid && !vmLogin.login_form.$pristine
+                            && (vmLogin.login_form.password.$dirty || vmLogin.login_form.$submitted))">
+                                            <!--<div ng-message="required">Password is required</div>-->
+                                            <!--{{vmLogin.status}}-->
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group text-left has-error"
+                                     ng-show="vmLogin.status && vmLogin.login_form.$submitted">
+                                     <div class="help-block">
+                                    	<i class="lnr-"></i><span>{{vmLogin.status}}</span>
+                                     </div>
+                                </div>
+                                <!-- Change this to a button or input when using this as a form -->
+                                <button type="submit" class="btn btn-lg btn-success btn-block"><i class="lnr lnr-rocket"></i> Sign In</button>
+                                <div class="text-center login-back-btn-container">
+									<a ui-sref="landing" class="login-back-btn"><i class="lnr lnr-undo"></i> Back to Homepage</a></li>
+                                </div>
+                                
+								<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+                        </fieldset>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
