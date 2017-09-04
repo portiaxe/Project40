@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -61,8 +63,14 @@ public class UserResource {
 	@RequestMapping("/user")
 	@ResponseBody
 	public Principal user(Principal user) {
+		System.out.println(user);
 		return user;
 	}
 	
+
+	@RequestMapping(value = "/private", method = RequestMethod.GET)	   
+	public String test(){
+		return "afsaf";
+	}
 	
 }

@@ -1,17 +1,22 @@
-project40.factory("LoginDataOp", ['$http', function($http,$rootScope) {
+project40.factory("LoginDataOp", ['$http', function($http, $httpParamSerializer,$rootScope) {
 
 	var LoginDataOp = {};
 	
-	console.log(expect(CSRF_TOKEN)+", loginservice");
+	encoded = btoa("project40_clients:Ksw3+Bu8ip%K^8re;v<R");
 	
-	LoginDataOp.login = function(user){
+	
+	LoginDataOp.login = function(user,token){
+			
+		var encoded = btoa("clientIdPassword:Ksw3+Bu8ip%K^8re;v<R");
+		
 		return $http({
 			method: 'POST',
-			url: 'login',
-			dataType: 'json',
-			data: user,
-			headers: { 'Content-Type': 'application/json; charset=UTF-8'}
-			//headers: { 'Content-Type': 'application/json; charset=UTF-8','X-CSRF-TOKEN':$rootScope.token}
+			url: 'oauth/token',
+			data:user,
+			headers: { 
+				'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8',
+				'Authorization':'Basic cHJvamVjdDQwX2NsaWVudHM6S3N3MytCdThpcCVLXjhyZTt2PFI='
+			}
 		
 		})
 	}

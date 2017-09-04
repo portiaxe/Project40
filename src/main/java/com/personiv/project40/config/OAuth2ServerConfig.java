@@ -11,8 +11,8 @@ import org.springframework.security.oauth2.config.annotation.web.configurers.Aut
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
 import org.springframework.security.oauth2.provider.token.DefaultAccessTokenConverter;
 
-@EnableAuthorizationServer
 @Configuration
+@EnableAuthorizationServer
 public class OAuth2ServerConfig extends AuthorizationServerConfigurerAdapter {
 
 	@Autowired
@@ -22,18 +22,18 @@ public class OAuth2ServerConfig extends AuthorizationServerConfigurerAdapter {
 	public void configure(final ClientDetailsServiceConfigurer clients)
 			throws Exception {
 		clients.inMemory()
-				.withClient("soncui")
-				.secret("soncui")
-				.authorizedGrantTypes("authorization_code", "refresh_token")
-				.scopes(new String[] { "read", "write" });
+				.withClient("project40_clients")
+				.authorizedGrantTypes("authorization_code","client_credentials", "refresh_token")
+				.authorities("ROLE_CLIENT","ROLE_TRUSTED_CLIENT")
+				.scopes("read", "write" ,"trust")
+				.resourceIds("oauth2-resource")
+				.secret("Ksw3+Bu8ip%K^8re;v<R");
 	}
 
 	@Override
 	public void configure(AuthorizationServerSecurityConfigurer oauthServer)
 			throws Exception {
-		oauthServer
-			.tokenKeyAccess("permitAll()")
-			.checkTokenAccess("isAuthenticated()");
+		oauthServer.checkTokenAccess("isAuthenticated()");
 	}
 	
 	@Bean
@@ -44,7 +44,6 @@ public class OAuth2ServerConfig extends AuthorizationServerConfigurerAdapter {
 	@Override
 	public void configure(AuthorizationServerEndpointsConfigurer endpoints)
 			throws Exception {
-		endpoints.authenticationManager(authenticationManager).accessTokenConverter(
-				defaultAccessTokenConverter());
+		endpoints.authenticationManager(authenticationManager);
 	}
 }
