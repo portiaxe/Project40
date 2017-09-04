@@ -2,7 +2,6 @@ project40.controller('LoginController',function($state,$scope,$httpParamSerializ
 	
 	var vm = this;
 	$rootScope.authenticated = false;
-	console.log(AuthService.authenticated+" aasadff");
 	
 	vm.user ={
 			user_name: undefined,
@@ -20,18 +19,23 @@ project40.controller('LoginController',function($state,$scope,$httpParamSerializ
 		
 		vm.user =$httpParamSerializer(user_data);
 		
-		LoginDataOp.login(vm.user,TOKEN).then(function(response){
-//			AuthService.authenticated = true;
-//			AuthService.username ='Jerico Grijaldo';
-//			AuthService.roles=['Admin','Department Head'];
+//		LoginDataOp.login(vm.user).then(function(response){
+//
+//			AuthService.token = response.data;
 //			$state.go("home");
-			console.log(response.data);
-		}).catch(function(error) {
-			console.log(error);
-		});
+//		}).catch(function(error) {
+//			console.log(error);
+//		});
+//		
+		
+		
 	};
 	
-
+	AuthService.getToken().then(function(response){
+		AuthService.token = response.data;
+	}).catch(function(error) {
+		console.log(error);
+	});
 	
 	vm.getUser = function(id){
 		LoginDataOp.getUser(id).then(function(response){

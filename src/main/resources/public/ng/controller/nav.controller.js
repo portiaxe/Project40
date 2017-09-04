@@ -10,6 +10,6 @@ project40.controller('NavigationController',function($state,$scope,$rootScope,Au
 			username: AuthService.username,
 			roles: AuthService.roles
 	}
-	console.log($scope.user);
+	console.log(AuthService.token);
 	
 });

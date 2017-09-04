@@ -5,21 +5,21 @@ project40.factory("LoginDataOp", ['$http', function($http, $httpParamSerializer,
 	encoded = btoa("project40_clients:Ksw3+Bu8ip%K^8re;v<R");
 	
 	
-	LoginDataOp.login = function(user,token){
-			
-		var encoded = btoa("clientIdPassword:Ksw3+Bu8ip%K^8re;v<R");
-		
-		return $http({
-			method: 'POST',
-			url: 'oauth/token',
-			data:user,
-			headers: { 
-				'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8',
-				'Authorization':'Basic cHJvamVjdDQwX2NsaWVudHM6S3N3MytCdThpcCVLXjhyZTt2PFI='
-			}
-		
-		})
-	}
+//	LoginDataOp.login = function(user,token){
+//			
+//		
+//		return $http({
+//			method: 'POST',
+//			url: 'oauth/token',
+//			data:user,
+//			headers: { 
+//				'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8',
+//				'Authorization':'Basic cHJvamVjdDQwX2NsaWVudHM6S3N3MytCdThpcCVLXjhyZTt2PFI='
+//			}
+//		
+//		
+//		})
+//	}
 	
 	
 	

@@ -44,15 +44,15 @@ public class ResourceServerConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth)
 			throws Exception {
-		auth.inMemoryAuthentication()
-			.withUser("user").password("userpwd").roles("USER")
-			.and()
-			.withUser("admin").password("adminpwd").roles("ADMIN")
-			/* FIXME : check_token api validates client credentials via basic authorization */
-			.and()
-			.withUser("soncrserv").password("soncrserv").roles("CLIENT");
-		
-		//auth.userDetailsService(userDetailsService).passwordEncoder(new BCryptPasswordEncoder());
+//		auth.inMemoryAuthentication()
+//			.withUser("user").password("userpwd").roles("USER")
+//			.and()
+//			.withUser("admin").password("adminpwd").roles("ADMIN")
+//			/* FIXME : check_token api validates client credentials via basic authorization */
+//			.and()
+//			.withUser("foo").password("123").roles("CLIENT");
+//		
+		auth.userDetailsService(userDetailsService).passwordEncoder(new BCryptPasswordEncoder());
 		auth.parentAuthenticationManager(authenticationManager);
 	}
 	
@@ -60,7 +60,8 @@ public class ResourceServerConfig extends WebSecurityConfigurerAdapter {
 	protected void configure(final HttpSecurity http) throws Exception {		
 		http
 		.authorizeRequests()
-		.antMatchers("/","/login").permitAll()
-		.antMatchers("/private").authenticated();			
+		.antMatchers("/","/login","/assets/**","/bower_components/**","/ng","/ng/**","/partials","/partials/**").permitAll()
+		.anyRequest().authenticated();
+		//.antMatchers("/private").authenticated();			
 	}
 }
