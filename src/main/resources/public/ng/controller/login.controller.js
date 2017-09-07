@@ -1,4 +1,4 @@
-project40.controller('LoginController',function($state,$scope,$httpParamSerializer,$rootScope,LoginDataOp,AuthService,TOKEN){
+project40.controller('LoginController',function($state,$scope,$httpParamSerializer,$rootScope,LoginDataOp,AuthService,$localStorage){
 	
 	var vm = this;
 	$rootScope.authenticated = false;
@@ -17,25 +17,22 @@ project40.controller('LoginController',function($state,$scope,$httpParamSerializ
 		       
 			   };
 		
-		vm.user =$httpParamSerializer(user_data);
+		vm.data =$httpParamSerializer(user_data);
 		
-//		LoginDataOp.login(vm.user).then(function(response){
-//
-//			AuthService.token = response.data;
-//			$state.go("home");
-//		}).catch(function(error) {
-//			console.log(error);
-//		});
-//		
+		LoginDataOp.login(vm.data,btoa(user_data.username+':Ksw3+Bu8ip%K^8re;v<R')).then(function(response){
+			AuthService.token = response.data;
+			//$cookies.put("access_token", data.data.access_token);
+			$localStorage.token = response.data.access_token;
+			$state.go("home");
+		}).catch(function(error) {
+			console.log(error);
+		});
+		
 		
 		
 	};
 	
-	AuthService.getToken().then(function(response){
-		AuthService.token = response.data;
-	}).catch(function(error) {
-		console.log(error);
-	});
+	
 	
 	vm.getUser = function(id){
 		LoginDataOp.getUser(id).then(function(response){

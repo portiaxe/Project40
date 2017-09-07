@@ -60,7 +60,10 @@ public class ResourceServerConfig extends WebSecurityConfigurerAdapter {
 	protected void configure(final HttpSecurity http) throws Exception {		
 		http
 		.authorizeRequests()
-		.antMatchers("/","/login","/assets/**","/bower_components/**","/ng","/ng/**","/partials","/partials/**").permitAll()
+		.antMatchers("/","/login","/assets/**",
+				     "/bower_components/**",
+				     "/ng","/ng/**","/partials",
+				     "/partials/**").permitAll()
 		.anyRequest().authenticated();
 		//.antMatchers("/private").authenticated();			
 	}

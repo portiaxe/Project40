@@ -1,4 +1,4 @@
-var project40 = angular.module('project40',['ui.router']);
+var project40 = angular.module('project40',['ui.router','ngStorage']);
 
 project40.constant('TOKEN',$("meta[name='csrf-token']").attr("content"));
 
@@ -40,4 +40,29 @@ project40.config(function($stateProvider, $urlRouterProvider, $locationProvider)
         templateUrl: '/Project40/partials/dashboard.html',
       
     })
+    
 });
+
+angular.module('project40').run(function ($state,$localStorage) {
+
+	var token = $localStorage.token;
+	if(token!== undefined){
+		$state.go('home');
+	}
+  });
+
+
+ //directive for pressing enter
+angular.module('project40').directive('ngEnter', function () {
+     return function (scope, element, attrs) {
+         element.bind("keydown keypress", function (event) {
+             if(event.which === 13) {
+                 scope.$apply(function (){
+                     scope.$eval(attrs.ngEnter);
+                 });
+
+                 event.preventDefault();
+             }
+         });
+     };
+ });

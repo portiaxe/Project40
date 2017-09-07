@@ -5,6 +5,7 @@ import javax.sql.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.env.Environment;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
@@ -13,6 +14,8 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.E
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
 import org.springframework.security.oauth2.provider.token.DefaultAccessTokenConverter;
+import org.springframework.security.oauth2.provider.token.TokenStore;
+import org.springframework.security.oauth2.provider.token.store.JdbcTokenStore;
 
 @Configuration
 @EnableAuthorizationServer
@@ -21,6 +24,8 @@ public class OAuth2ServerConfig extends AuthorizationServerConfigurerAdapter {
 	@Autowired
 	private AuthenticationManager authenticationManager;
 	
+	@Autowired
+	Environment env;
 	
 	@Bean
 	public DataSource dataSource() {
@@ -30,26 +35,12 @@ public class OAuth2ServerConfig extends AuthorizationServerConfigurerAdapter {
 	    dataSource.setUrl("jdbc:mysql://localhost/jwt");
 	    dataSource.setUsername("root");
 	    dataSource.setPassword("whosyourdaddy");
+	   // System.out.println(env.getProperty("spring.datasource.url"));
 	    return dataSource;
 	}
 	@Override	
 	public void configure(final ClientDetailsServiceConfigurer clients)
 			throws Exception {
-//		clients.inMemory()
-//				.withClient("project40_clients")
-//				.authorizedGrantTypes("authorization_code","client_credentials", "refresh_token")
-//				.authorities("ROLE_CLIENT","ROLE_TRUSTED_CLIENT")
-//				.scopes("read", "write" ,"trust")
-//				.resourceIds("oauth2-resource")
-//				.secret("Ksw3+Bu8ip%K^8re;v<R");
-		
-//		clients.inMemory()
-//		.withClient("project40_clients")
-//		.authorizedGrantTypes("authorization_code","client_credentials", "refresh_token")
-//		.authorities("ROLE_CLIENT","ROLE_TRUSTED_CLIENT")
-//		.scopes("read", "write" ,"trust")
-//		.resourceIds("oauth2-resource")
-//		.secret("Ksw3+Bu8ip%K^8re;v<R");
 		clients.jdbc(dataSource());
 		
 	}
@@ -60,9 +51,10 @@ public class OAuth2ServerConfig extends AuthorizationServerConfigurerAdapter {
 		oauthServer.checkTokenAccess("isAuthenticated()");
 	}
 	
+	
 	@Bean
-	public DefaultAccessTokenConverter defaultAccessTokenConverter() {
-		return new DefaultAccessTokenConverter();
+	public TokenStore tokenStore() {
+	    return new JdbcTokenStore(dataSource());
 	}
 	
 	@Override
